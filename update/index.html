@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Update Available — Shortcuts Archive Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cherry: #c0392b;
+  --cherry-bright: #e74c3c;
+  --cherry-dim: #a93226;
+  --cherry-glow: rgba(192,57,43,0.35);
+  --cherry-subtle: rgba(192,57,43,0.08);
+  --bg: #080809;
+  --bg-card: #0f0f11;
+  --bg-elevated: #161618;
+  --border: rgba(255,255,255,0.055);
+  --border-accent: rgba(192,57,43,0.22);
+  --text: #ededf0;
+  --text-muted: #5c5c68;
+  --text-secondary: #8f8f9e;
+  --green: #2ecc71;
+  --green-subtle: rgba(46,204,113,0.08);
+  --green-border: rgba(46,204,113,0.22);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+.page {
+  max-width:480px;
+  margin:0 auto;
+  padding:60px 24px 48px;
+}
+
+/* ── HEADER ── */
+.header {
+  text-align:center;
+  margin-bottom:32px;
+}
+.update-badge {
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(46,204,113,0.1);
+  border:1px solid var(--green-border);
+  border-radius:100px;padding:5px 13px;
+  font-size:10px;font-weight:600;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--green);margin-bottom:20px;
+}
+.badge-pulse{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+.app-icon{font-size:56px;line-height:1;margin-bottom:14px;filter:drop-shadow(0 0 20px rgba(192,57,43,0.4));}
+.header-title{
+  font-family:'DM Sans',sans-serif;
+  font-size:26px;font-weight:800;
+  line-height:1.2;letter-spacing:-0.01em;
+  margin-bottom:6px;
+}
+.header-sub{font-size:13px;color:var(--text-muted);}
+
+/* ── VERSION COMPARISON ── */
+.version-compare {
+  display:grid;grid-template-columns:1fr auto 1fr;
+  gap:12px;align-items:center;
+  margin-bottom:24px;
+}
+.version-box {
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:14px;padding:14px;
+  text-align:center;
+}
+.version-box.new { border-color:var(--green-border); }
+.version-label{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.version-num{font-family:'DM Sans',sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.01em;}
+.version-box.new .version-num{color:var(--green);}
+.version-arrow{font-size:18px;color:var(--text-muted);}
+
+/* ── RELEASE NOTES ── */
+.notes-card {
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  margin-bottom:24px;
+}
+.notes-header {
+  padding:14px 18px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;
+}
+.notes-header-label {
+  font-size:11px;font-weight:600;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--cherry-bright);
+}
+.notes-body {
+  padding:18px;
+  max-height:340px;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.notes-body::-webkit-scrollbar{width:3px;}
+.notes-body::-webkit-scrollbar-track{background:transparent;}
+.notes-body::-webkit-scrollbar-thumb{background:var(--border-accent);border-radius:2px;}
+.notes-text {
+  font-size:13px;
+  line-height:1.7;
+  color:var(--text-secondary);
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+.notes-fade {
+  position:relative;
+}
+.notes-fade::after {
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;height:40px;
+  background:linear-gradient(to bottom, transparent, var(--bg-card));
+  pointer-events:none;
+}
+
+/* ── SHORTCUT INFO ── */
+.info-row {
+  display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;
+}
+.info-chip {
+  flex:1;min-width:80px;
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;text-align:center;
+}
+.info-chip-label{font-size:10px;color:var(--text-muted);font-weight:500;margin-bottom:4px;}
+.info-chip-value{font-size:13px;font-weight:600;color:var(--text);}
+
+/* ── ACTIONS ── */
+.actions {
+  display:flex;flex-direction:column;gap:10px;
+  position:sticky;bottom:0;
+  padding:16px 0 0;
+  background:linear-gradient(to bottom, transparent, var(--bg) 30%);
+}
+.btn-install {
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  background:linear-gradient(135deg,#2ecc71,#27ae60);
+  color:white;font-family:'DM Sans',sans-serif;
+  font-size:15px;font-weight:700;
+  padding:15px;border-radius:100px;border:none;cursor:pointer;
+  box-shadow:0 6px 24px rgba(46,204,113,0.35);
+  -webkit-appearance:none;transition:transform 0.15s,box-shadow 0.15s;
+}
+.btn-install:active{transform:scale(0.97);box-shadow:0 3px 12px rgba(46,204,113,0.25);}
+.btn-later {
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bg-elevated);
+  color:var(--text-secondary);
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;font-weight:600;
+  padding:14px;border-radius:100px;
+  border:1px solid var(--border);cursor:pointer;
+  -webkit-appearance:none;transition:border-color 0.2s;
+}
+.btn-later:active{border-color:var(--border-accent);}
+
+.author-note{text-align:center;margin-top:20px;font-size:11px;color:var(--text-muted);}
+.author-note a{color:var(--cherry-bright);text-decoration:none;font-weight:500;}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.25}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="update-badge"><span class="badge-pulse"></span>Update Available</div>
+    <div class="app-icon">🗄️</div>
+    <h1 class="header-title">Shortcuts Archive Manager</h1>
+    <p class="header-sub" id="headerSub">A new version is available</p>
+  </div>
+
+  <div class="version-compare">
+    <div class="version-box">
+      <div class="version-label">Installed</div>
+      <div class="version-num" id="installedVersion">—</div>
+    </div>
+    <div class="version-arrow">→</div>
+    <div class="version-box new">
+      <div class="version-label">Latest</div>
+      <div class="version-num" id="latestVersion">—</div>
+    </div>
+  </div>
+
+  <div class="info-row" id="infoRow" style="display:none">
+    <!-- populated by JS if extra fields present -->
+  </div>
+
+  <div class="notes-card">
+    <div class="notes-header">
+      <span class="notes-header-label">📋 Release Notes</span>
+    </div>
+    <div class="notes-body">
+      <div class="notes-text" id="releaseNotes">Loading...</div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn-install" id="installBtn" onclick="installUpdate()">
+      ⬇️ Install Update
+    </button>
+    <button class="btn-later" onclick="dismissLater()">
+      Later
+    </button>
+  </div>
+
+  <p class="author-note">
+    By <a href="https://routinehub.co/user/dastefster" target="_blank">@Dastefster</a> on RoutineHub
+  </p>
+
+</div>
+
+<script>
+// Parse URL params
+const params = new URLSearchParams(window.location.search);
+const installed = params.get('installed') || '—';
+const latest = params.get('latest') || '—';
+const notes = params.get('notes') || 'No release notes available.';
+const downloadUrl = params.get('url') || '';
+const actions = params.get('actions') || '';
+const released = params.get('released') || '';
+
+// Populate
+document.getElementById('installedVersion').textContent = installed;
+document.getElementById('latestVersion').textContent = latest;
+document.getElementById('releaseNotes').textContent = notes;
+document.getElementById('headerSub').textContent =
+  `Version ${latest} is now available`;
+
+// Optional info chips
+const infoRow = document.getElementById('infoRow');
+const chips = [];
+if (actions) chips.push({ label: 'Actions', value: actions });
+if (released) chips.push({ label: 'Released', value: released });
+
+if (chips.length > 0) {
+  infoRow.style.display = 'flex';
+  chips.forEach(c => {
+    infoRow.innerHTML += `
+      <div class="info-chip">
+        <div class="info-chip-label">${c.label}</div>
+        <div class="info-chip-value">${c.value}</div>
+      </div>`;
+  });
+}
+
+function installUpdate() {
+  if (downloadUrl) {
+    window.location = downloadUrl;
+  }
+}
+
+function dismissLater() {
+  // Return to Scriptable — script continues normally
+  window.location = "shortcuts://run-shortcut?name=Shortcuts%20Archive%20Manager&input=text&text=%7B%22fn%22%3A%22updateDismissed%22%7D";
+}
+</script>
+</body>
+</html>
