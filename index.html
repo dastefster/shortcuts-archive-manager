@@ -53,10 +53,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overf
 .topbar-title{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--text-secondary);}
 
 /* ── SIDE DOTS ── */
-.side-nav{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:4px;}
-.nav-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;}
-.nav-dot::after{content:'';width:6px;height:6px;border-radius:50%;background:var(--text-muted);transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);}
-.nav-dot.active::after{background:var(--cherry-bright);width:8px;height:8px;box-shadow:0 0 8px var(--cherry-glow);}
+.side-nav{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:9px;}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:var(--text-muted);cursor:pointer;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);}
+.nav-dot.active{background:var(--cherry-bright);width:7px;height:7px;box-shadow:0 0 8px var(--cherry-glow);}
 
 /* ── SECTIONS ── */
 section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 26px 60px;opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease;}
